@@ -1,19 +1,27 @@
 [package]
-name = "rust-template"
+name = "repo-root"
 description = "TODO"
 version = "0.1.0"
 edition = "2021"
 license = "MIT OR Apache-2.0"
-homepage = "https://github.com/adam-gaia/rust-template"
-repository = "https://github.com/adam-gaia/rust-template"
+homepage = "https://github.com/adam-gaia/repo-root"
+repository = "https://github.com/adam-gaia/repo-root"
+
+[lib]
+name = "repo_root"
+path = "src/lib.rs"
+
+[[bin]]
+name = "repo-root"
+source = "src/main.rs"
 
 [dependencies]
 clap = { version = "4.5.9", features = ["derive"] }
 color-eyre = "0.6.3"
 env_logger = "0.11.3"
 log = "0.4.22"
-directories = "5.0.1"
-serde = { version = "1.0.210", features = ["derive"] }
+thiserror = "1.0.64"
+winnow = "0.6.20"
 
 [dev-dependencies]
 pretty_assertions = "1.4.1"

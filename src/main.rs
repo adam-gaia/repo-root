@@ -1,18 +1,16 @@
 use clap::{Parser, Subcommand};
 use color_eyre::Result;
 use log::info;
-
-#[derive(Debug, Subcommand)]
-enum Commands {
-    Todo,
-}
+use repo_root::{ProjectTypes, RepoRoot};
+use std::{env, path::PathBuf};
 
 #[derive(Debug, Parser)]
 #[command(version, about, long_about=None)]
 struct Cli {
-    // TODO
-    #[command(subcommand)]
-    command: Option<Commands>,
+    path: Option<PathBuf>,
+
+    #[clap(short, long, default_value_t)]
+    r#type: ProjectTypes,
 }
 
 fn main() -> Result<()> {
@@ -20,20 +18,18 @@ fn main() -> Result<()> {
     env_logger::init();
 
     let args = Cli::parse();
-    match &args.command {
-        Some(command) => {
-            match command {
-                Commands::Todo => {
-                    // TODO
-                    info!("TODO: Command::Todo");
-                }
-            }
-        }
-        None => {
-            // TODO
-            info!("TODO: no subcommand provided");
-        }
-    }
+    let path = match args.path {
+        Some(path) => path,
+        None => env::current_dir()?,
+    };
 
+    let r#type = args.r#type;
+    let Some(root) = r#type.find(&path)? else {
+        eprintln!("No {} root found", r#type);
+        std::process::exit(1);
+    };
+
+    let root = std::fs::canonicalize(root)?;
+    println!("{}", root.display());
     Ok(())
 }

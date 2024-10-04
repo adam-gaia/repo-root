@@ -1,44 +1,32 @@
 <div class="oranda-hide">
 
-# TODO: Project name goes here
+# repo-root
 
 </div>
 
-Project description goes here.
+Find the root directory of a project.
 
-## Usage
-
-1. Create a new project
+## CLI
 
 ```bash
-  cargo new "${NAME}"
-  cd "${NAME}"
+    cargo install repo-root
 ```
 
-2. Merge this repo with `--allow-unrelated-histories`. This way, we can pull in updates later.
+## Library
 
 ```bash
-  git remote add template https://github.com/adam-gaia/rust-template
-  git fetch template
-  git merge --allow-unrelated-histories template/main
+  cargo add repo-root
 ```
 
-Note that you will want to exclude at least
+## Supported project types
 
-- TODO.md
+- git:`.git` dir
+- Docker: `Dockerfile` file
+- NodeJS: `package.json` file
+- Rust: `Cargo.toml` file
+- Python: `pyproject.toml` file
+- Nix: `flake.nix` file
 
-## Cloning this repo
+### Custom
 
-When cloning this repo, set up to pull CI files from https://github.com/epage/\_rust
-
-```bash
-  git remote add ci https://github.com/epage/_rust.git
-  git fetch ci
-  git merge --allow-unrelated-histories template/main
-```
-
-Grab the files in `.github/workflows/`
-
-## Notes
-
-The merging unrelated history process was inspired by [jonhoo's rust ci repo](https://github.com/jonhoo/rust-ci-conf/blob/main/.github/DOCS.md).
+See [examples/custom_project_type.rs](examples/custom_project_type.rs)
